@@ -99,6 +99,10 @@ class Room(object):
 			s += exit + " "
 
 		return s
+class treasureRoom(Room):
+        pass
+
+
 
 # the game class
 # inherits from the Frame class of Tkinter
