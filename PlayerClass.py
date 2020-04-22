@@ -10,4 +10,17 @@ class Player(object):
         self.magicdefense = mdef
         self.agility = agi
         self.owner = name
+    def __str__(self):
+        return "Player: HP= {}, MP= {}".format(self.hp, self.mp)
+
+
+    def status():
+        # A command that would tell the player their stats
+        pass
+
+    def inventory():
+        #Initalize the player's iventory
+                Player.inventory = []
+
+    
     

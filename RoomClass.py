@@ -1,5 +1,6 @@
 ### Room Class ###
 from Tkinter import *
+from PlayerClass import Player
 
 # the room class
 # note that this class is fully implemented with dictionaries as illustrated in the lesson "More on Data Structures"
