@@ -2,14 +2,14 @@
 
 class Player(object):
     def __init__(self, name, hp, mp, atk, pdef, mag, mdef, agi):
-        self.hp = hp
-        self.mp = mp
-        self.strength = atk
-        self.defense = pdef
-        self.magic = mag
-        self.magicdefense = mdef
-        self.agility = agi
-        self.owner = name
+        self.hp = Php
+        self.mp = Pmp
+        self.strength = Patk
+        self.defense = Ppdef
+        self.magic = Pmag
+        self.magicdefense = Pmdef
+        self.agility = Pagi
+        self.owner = Pname
     def __str__(self):
         return "Player: HP= {}, MP= {}".format(self.hp, self.mp)
 
