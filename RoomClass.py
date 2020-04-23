@@ -1,6 +1,7 @@
 ### Room Class ###
 from Tkinter import *
 from PlayerClass import Player
+#from CombatClass import Combat
 
 # the room class
 # note that this class is fully implemented with dictionaries as illustrated in the lesson "More on Data Structures"
@@ -100,8 +101,17 @@ class Room(object):
 			s += exit + " "
 
 		return s
-class treasureRoom(Room):
-        pass
+class StartingRoom(Room):
+        def __str__(self):
+                # first, the room name
+                s = "You are in complete darkness, you cannot see.\n"
+                # next, the exits from the room
+                s += "You can feintly make out two doors,\nwhich way should you go?:\n"
+                for exit in self.exits.keys():
+                        s += exit + " "
+
+                return s
+pass
 
 
 
@@ -116,7 +126,7 @@ class Game(Frame):
         # creates the rooms
         def createRooms(self):
                 # Initalizes the rooms
-                r1 = Room("DiningRoom", "DiningRoom.gif")
+                r1 = StartingRoom("StartRoom", "StartingRoom.gif")
                 r2 = Room("LivingRoom", "LivingRoom.gif")
                 r3 = Room("Study", "Study.gif")
                 r4 = Room("Bedroom,", "Bedroom.gif")
@@ -130,11 +140,7 @@ class Game(Frame):
                 r1.addExit("south", r3)
                 r1.addExit("west",r2)
                 #r1 grabbables
-                r1.addGrabbable("key")
-                #r1 items
-                r1.addItem("clock","A clock is seen ticking away, however it seems to move at a rate far faster than normal time would allow.")
-                r1.addItem("dinning-table", "The table is decorated with various silverwear and plates. A key is seen under the serving tray.")
-                r1.addItem("chandelier", "A golden chandelier hangs in the center of the room. Casting a dim light onto the rest of the space.")
+                r1.addGrabbable("torch")
 
 
                 # ROOM 2
