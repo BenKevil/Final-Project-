@@ -19,7 +19,7 @@ class Combat(Monster, Player):
             sorigin = self.strength
             dorigin = self.defense
             self.strength = 0
-            self.defense = self.defense * 2
+            self.defense = self.defense * 23
 
         if command == 3:
             print "Which magic do you want to use" +str(moveset)+""

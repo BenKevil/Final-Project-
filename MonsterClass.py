@@ -1,18 +1,17 @@
 ### Monster Class ###
 
 class Monster(object):
-
-  # Initializes the Monster class, giving various stats 
-  def __init__(self, name, hp, mp, atk, pdef, mag, mdef, agi):
+  def __init__(self, name, hp, mp, strength, defense, magic, magicdefense, agility, loot, lootchance):
     self.hp = hp
     self.mp = mp
-    self.strength = atk
-    self.defense = pdef
-    self.magic = mag
-    self.magicdefense = mdef
-    self.agility = agi
+    self.strength = strength
+    self.defense = defense
+    self.magic = magic
+    self.magicdefense = magicdefense
+    self.agility = agility
+    self.loot = loot
+    self.lootchance = lootchance
     self.owner = name
-  #Physically prints the stats of each monster introduced
   def __str__(self):
     return "Monster={}, HP={}, HP={}, Strength={}, Defense={}, Magic={}, Magic Defense={}, Agility={}"\
       .format(self.owner, self.hp, self.mp, self.strength, self.defense, self.magic, self.magicdefense, self.agility)
