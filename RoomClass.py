@@ -1,6 +1,7 @@
 ### Room Class ###
 from Tkinter import *
 from PlayerClass import Player
+from MonsterClass import Monster
 #from CombatClass import Combat
 
 # the room class
@@ -111,7 +112,14 @@ class StartingRoom(Room):
                         s += exit + " "
 
                 return s
-pass
+class MonsterRoom(Room):
+       def __str__(self):
+                # first, the room name
+                s = "You begin to enter the room, when suddenly a" + monsterName
+                # next, the exits from the room
+                s += "You can feintly make out two doors,\nwhich way should you go?:\n"
+                for exit in self.exits.keys():
+                        s += exit + " "
 
 
 
@@ -127,7 +135,7 @@ class Game(Frame):
         def createRooms(self):
                 # Initalizes the rooms
                 r1 = StartingRoom("StartRoom", "StartingRoom.gif")
-                r2 = Room("LivingRoom", "LivingRoom.gif")
+                r2 = Room("You enter the chamber, when suddenly a goblin pops out!", "GoblinRoom.gif")
                 r3 = Room("Study", "Study.gif")
                 r4 = Room("Bedroom,", "Bedroom.gif")
                 

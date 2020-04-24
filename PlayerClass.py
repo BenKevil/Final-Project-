@@ -20,7 +20,7 @@ class Player(object):
 
     def inventory():
         #Initalize the player's iventory
-                Player.inventory = []
+        Player.inventory = []
 
     
     
