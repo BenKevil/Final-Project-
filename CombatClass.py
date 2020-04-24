@@ -1,3 +1,5 @@
+from random import randint
+import random
 from MonsterClass import Monster
 from PlayerClass import Player
     
