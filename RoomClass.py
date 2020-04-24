@@ -115,7 +115,7 @@ class StartingRoom(Room):
 class MonsterRoom(Room):
        def __str__(self):
                 # first, the room name
-                s = "You begin to enter the room, when suddenly a" + monsterName
+                s = "You begin to enter the room, when suddenly a goblin! \n"
                 # next, the exits from the room
                 s += "You can feintly make out two doors,\nwhich way should you go?:\n"
                 for exit in self.exits.keys():
