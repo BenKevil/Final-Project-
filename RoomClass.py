@@ -135,9 +135,9 @@ class Game(Frame):
         def createRooms(self):
                 # Initalizes the rooms
                 r1 = StartingRoom("StartRoom", "StartingRoom.gif")
-                r2 = Room("You enter the chamber, when suddenly a goblin pops out!", "GoblinRoom.gif")
-                r3 = Room("Study", "Study.gif")
-                r4 = Room("Bedroom,", "Bedroom.gif")
+                r2 = MonsterRoom("GoblinRoom", "GoblinRoom.gif")
+                r3 = MonsterRoom("SkeletonRoom", "Study.gif")
+                r4 = MonsterRoom("SpiderRoom", "Bedroom.gif")
                 
 
                 
