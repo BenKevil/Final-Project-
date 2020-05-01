@@ -246,9 +246,7 @@ class Game(Frame):
                 r2.addExit("south", r4)
                 r2.addExit("east",r1)
                 #r2 items
-                r2.addItem("chessboard"," A chesseboard sits to the back corner of the room, on top a board, with what appears to be a rusted lock blocking access to the drawer.")
-                r2.addItem("fireplace", "The fireplace crackles in the otherwise silence of the home.")
-                r2.addItem("sofa","A luxery sofa sits in the center of the room, upon closer inspection it appears to have not been used in years. ")
+               
 
                 # ROOM 3
                 #r3 exits
@@ -257,9 +255,7 @@ class Game(Frame):
                 #r3 grabbables
                 r3.addGrabbable("book")
                 #r3 items
-                r3.addItem("bust","A marble bust sits inside the bookshelf, depicting an unrecognizable man.")
-                r3.addItem("bookshelves", "The shelves are lined with books no younger than 50 years old, its clear this place has laid undesturbed for some time.")
-                r3.addItem("writing-station", "With a simple book and quill its clear whoever used this prefers a more classical approach to writing.")
+                
 
                 # ROOM 4
                 #r4 exits
@@ -267,9 +263,7 @@ class Game(Frame):
                 r4.addExit("east", r3)
                 
                 #r4 items
-                r4.addItem("bed","A victorian style white bd sits in the back corner of the room, seemingly unused for quite some time.")
-                r4.addItem("chest","A chest is seen at the footrest of the bed, inside is spare sheets and pillow casings.")
-                r4.addItem("dresser","A simple dresser containing dusty clothing, beyond the clear age they appear to be well kept.")
+                
 
                 #r4 grabbables
                 r4.addGrabbable("sheets")
