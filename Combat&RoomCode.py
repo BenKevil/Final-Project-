@@ -225,9 +225,9 @@ class Game(Frame):
         def createRooms(self):
                 # Initalizes the rooms
                 r1 = StartingRoom("StartRoom", "StartingRoom.gif")
-                r2 = Room("You enter the chamber, when suddenly a goblin pops out!", "GoblinRoom.gif")
-                r3 = Room("Study", "Study.gif")
-                r4 = Room("Bedroom,", "Bedroom.gif")
+                r2 = MonsterRoom("GoblinRoom", "GoblinRoom.gif")
+                r3 = MonsterRoom("SkeletonRoom", "DungeonRoom2.gif")
+                r4 = MonsterRoom("SpiderRoom", "DungeonRoom3.gif")
                 
 
                 
@@ -312,9 +312,9 @@ class Game(Frame):
         #Need to change this back to where the image are stored.
         def setRoomImage(self):
                 if(Game.currentRoom ==None):
-                        Game.img = PhotoImage(file='C:\\Users\\Leron\\Documents\\skull.gif')
+                        Game.img = PhotoImage(file="skull.gif")
                 else:
-                        Game.img = PhotoImage(file='C:\\Users\\Leron\\Documents\\room1.gif')
+                        Game.img = PhotoImage(file=Game.currentRoom.image)
 
                 Game.image.config(image=Game.img)
                 Game.image.image=Game.img
