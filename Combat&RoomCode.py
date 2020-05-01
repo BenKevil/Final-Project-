@@ -45,20 +45,24 @@ class Fiends(Monster):
     strike = 0
     luck = 0
     limit = 4
-    #Check to see who go first.
+#Tell player their starting hp and mp.
+    text = "Hero's hp:"+str(self.hp)+" mp:"+str(self.mp)+" \n"
+    text += ""+str(self.owner)+" versus "+str(b.owner)+"\n"
+#Check to see if player go first.
     first = self.agility - b.agility
-    text = "A "+str(b.owner)+" Appear!!\n"
+    text += "A "+str(b.owner)+" Appear!!\n"
     while(battle == 0):
+#Combat begin
       if first > 0:
         b.hp = b.hp - (self.strength - b.defense)
-        text += "Attacker Hit\n"
+        text += ""+str(self.owner)+" Hit!! "+str(b.owner)+" take "+str(self.strength - b.defense)+" damge\n"
         text += ""+str(b.owner)+"'s Hp = " +str(b.hp)+"\n"
         if b.hp <= 0:
           text += ""+str(b.owner)+" lose\n"
           battle = 1
         else:
           self.hp = self.hp - (b.strength - self.defense)
-          text += "Defender Hit\n"
+          text += ""+str(b.owner)+" Hit!! "+str(self.owner)+" take "+str(b.strength - self.defense)+" damge\n"
           text += ""+str(self.owner)+"'s Hp = " +str(self.hp)+"\n"        
           if self.hp <= 0:
             text += ""+str(self.owner)+" lose\n"
@@ -66,25 +70,25 @@ class Fiends(Monster):
 
       else:
         self.hp = self.hp - (b.strength - self.defense)
-        text += "Defender Hit\n"
+        text += ""+str(b.owner)+" Hit!! "+str(self.owner)+" take "+str(b.strength - self.defense)+" damge\n"
         text += ""+str(self.owner)+"'s Hp = " +str(self.hp)+"\n"
         if self.hp <= 0:
           text += ""+str(self.owner)+" lose\n"
           battle = 1
         else:
           b.hp = b.hp - (self.strength - b.defense)
-          text += "Attacker Hit\n"
+          text += ""+str(self.owner)+" Hit!! "+str(b.owner)+" take "+str(self.strength - b.defense)+" damge\n"
           text += ""+str(b.owner)+"'s Hp = " +str(b.hp)+"\n"
           if b.hp <= 0:
             text += ""+str(b.owner)+" lose\n"
             battle = 1
-
+#Roll luck to see if player earn loot.
       if b.hp <= 0:
         luck = randint(0, 100)
-        if b.owner == "Knight":
+        if b.owner == "Goblin":
           text += "Roll a " +str(luck)+"\n"
           if luck >= b.lootchance:
-            text += ""+str(self.owner)+" has obtained a " +str(b.loot)+". Increase Strength by 2.\n"
+            text += ""+str(self.owner)+" has obtained a " +str(b.loot)+". \nIncrease Strength by 2.\n"
             self.strength = self.strength + 2
           if luck < b.lootchance:
             text += ""+str(self.owner)+" failed to find anything"
@@ -401,8 +405,8 @@ class Game(Frame):
                                                 break
                         #Added fight function. Trigger Combat verus goblin once user type "fight"
                         elif (verb == "fight"):
-                            Hero = Fiends("Hero", 50, 50, 10, 10, 10 ,10, 10, "", 0)
-                            d1 = Fiends("Goblin", 20, 15, 5, 0, 0, 0, 5, "Short Sword", 60)
+                            Hero = Fiends("Hero", 50, 50, 10, 0, 10 ,10, 10, "", 0)
+                            d1 = Fiends("Goblin", 20, 5, 5, 0, 0, 0, 5, "Short Sword", 40)
                             Hero.Combat(d1)
                             response = text
 
