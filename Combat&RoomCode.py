@@ -203,9 +203,9 @@ class StartingRoom(Room):
 class MonsterRoom(Room):
        def __str__(self):
                 # first, the room name
-                s = "You begin to enter the room, when suddenly a goblin! \n"
+                s = "You enter the room, seeing a monster inside \n"
                 # next, the exits from the room
-                s += "You can feintly make out two doors,\nwhich way should you go?:\n"
+                s += "You can feintly make out two doors,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
                         s += exit + " "
 
@@ -313,15 +313,6 @@ class Game(Frame):
                 Game.image.config(image=Game.img)
                 Game.image.image=Game.img
                 
-
-        # sets the status displayed on the right of the GUI
-        @property
-	def MonName(self):
-		return self._MonName
-
-	@name.setter
-	def MonName(self, value):
-		self._MonName = value
         def setStatus(self, status):
                 #clear the previuous text
                 Game.text.config(state=NORMAL)
