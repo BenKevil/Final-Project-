@@ -226,8 +226,8 @@ class Game(Frame):
                 # Initalizes the rooms
                 r1 = StartingRoom("StartRoom", "StartingRoom.gif")
                 r2 = MonsterRoom("GoblinRoom", "GoblinRoom.gif")
-                r3 = MonsterRoom("SkeletonRoom", "DungeonRoom2.gif")
-                r4 = MonsterRoom("SpiderRoom", "DungeonRoom4.gif")
+                r3 = MonsterRoom("SkeletonRoom", "SkeletonRoom.gif")
+                r4 = MonsterRoom("SpiderRoom", "SpiderRoom.gif")
                 
 
                 
@@ -315,6 +315,13 @@ class Game(Frame):
                 
 
         # sets the status displayed on the right of the GUI
+        @property
+	def MonName(self):
+		return self._MonName
+
+	@name.setter
+	def MonName(self, value):
+		self._MonName = value
         def setStatus(self, status):
                 #clear the previuous text
                 Game.text.config(state=NORMAL)
