@@ -117,9 +117,11 @@ class MonsterRoom(Room):
                 # first, the room name
                 s = "You begin to enter the room, when suddenly a goblin! \n"
                 # next, the exits from the room
-                s += "You can feintly make out two doors,\nwhich way should you go?:\n"
+                s += "You can feintly make out two doors,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
                         s += exit + " "
+
+                return s
 
 
 
@@ -237,7 +239,7 @@ class Game(Frame):
 
                 #if dead, say so, set text to __str__
                 if(Game.currentRoom == None):
-                        Game.text.insert(END, "You fall from the balcony, you are dead. You may quit. \m")
+                        Game.text.insert(END, "You are dead. You may quit. \m")
                 else:
                         Game.text.insert(END,str(Game.currentRoom)+ \
                                          "\nYou are carrying: " +str(Game.inventory)+
