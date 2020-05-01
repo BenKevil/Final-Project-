@@ -45,41 +45,40 @@ class Fiends(Monster):
     strike = 0
     luck = 0
     limit = 4
-
+    #Check to see who go first.
+    first = self.agility - b.agility
+    text = "A "+str(b.owner)+" Appear!!\n"
     while(battle == 0):
-    #Check agility to see who go first
-      first = self.agility - b.agility
-      #The faster person will attack first, and combat end when someone hp reach 0
       if first > 0:
         b.hp = b.hp - (self.strength - b.defense)
-        text = "Attacker Hit\n"
+        text += "Attacker Hit\n"
         text += ""+str(b.owner)+"'s Hp = " +str(b.hp)+"\n"
         if b.hp <= 0:
-          battle = 1
           text += ""+str(b.owner)+" lose\n"
+          battle = 1
         else:
           self.hp = self.hp - (b.strength - self.defense)
           text += "Defender Hit\n"
           text += ""+str(self.owner)+"'s Hp = " +str(self.hp)+"\n"        
           if self.hp <= 0:
-            battle = 1
             text += ""+str(self.owner)+" lose\n"
+            battle = 1
 
       else:
         self.hp = self.hp - (b.strength - self.defense)
         text += "Defender Hit\n"
         text += ""+str(self.owner)+"'s Hp = " +str(self.hp)+"\n"
         if self.hp <= 0:
-          battle = 1
           text += ""+str(self.owner)+" lose\n"
+          battle = 1
         else:
           b.hp = b.hp - (self.strength - b.defense)
           text += "Attacker Hit\n"
           text += ""+str(b.owner)+"'s Hp = " +str(b.hp)+"\n"
           if b.hp <= 0:
-            battle = 1
             text += ""+str(b.owner)+" lose\n"
-      #If player win, roll for loot. If luck is higher then loot chance players get items
+            battle = 1
+
       if b.hp <= 0:
         luck = randint(0, 100)
         if b.owner == "Knight":
@@ -88,7 +87,7 @@ class Fiends(Monster):
             text += ""+str(self.owner)+" has obtained a " +str(b.loot)+". Increase Strength by 2.\n"
             self.strength = self.strength + 2
           if luck < b.lootchance:
-            print(""+str(self.owner)+" failed to find anything")
+            text += ""+str(self.owner)+" failed to find anything"
             
   def __str__(self):
     return Monster.__str__(self)
