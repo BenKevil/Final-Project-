@@ -1,13 +1,7 @@
-#the actual combat function will be in the player class had it written here
-#at first but my dumb brain delete the function instead of copy paste
-#should have it back by end of the day
 class Combat(object):
   def __init__(self, name, hp, atk, end, mag, res, agi):
     self.name = name
     self.hp = hp
-    #might drop mp, as stats are random for player if there magic is best they
-    #could have a hard time if they can't use magic anymore
-##    self.mp = 0
     self.atk = atk
     self.end = end
     self.mag = mag
@@ -32,18 +26,6 @@ class Combat(object):
       self._hp = val
     else:
       self._hp = 0
-      self.defeat()
-  
-##  @property
-##  def mp(self):
-##    return self._mp
-##
-##  @mp.setter
-##  def mp(self, val):
-##    if (val > 0):
-##      self._mp = val
-##    else:
-##      return "Not enough mp"
   
   @property
   def atk(self):

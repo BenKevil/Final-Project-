@@ -7,6 +7,3 @@ class Monster(Combat):
     self.exp = exp
       
 
-
-
-Gob = Monster("Goblin", 9, 6, 4, 5, 4, 7, "knife", 50)
