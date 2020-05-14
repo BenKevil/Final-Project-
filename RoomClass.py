@@ -123,6 +123,36 @@ class MonsterRoom(Room):
 
                 return s
 
+class ExitRoom(Room):
+       def __str__(self):
+                # first, the room name
+                s = "You begin to enter the room, when suddenly a goblin! \n"
+                # next, the exits from the room
+                s += "You can feintly make out three doors one of which is locked,\nwhat should you do?:\n"
+                for exit in self.exits.keys():
+                        s += exit + " "
+
+                return s
+
+class VictoryRoom(Room):
+       def __str__(self):
+                # first, the room name
+                s = "You step outside of the dungeon, finally free. \n"
+                # next, the exits from the room
+                s += "You have won!\n"
+
+                return s
+
+class HallRoom(Room):
+        def __str__(self):
+                # first, the room name
+                s = "You make your way along the corridor, analyzing your surrondings\n"
+                # next, the exits from the room
+                s += "There are only two ways to go, back or forward, which direction do you go?:\n"
+                for exit in self.exits.keys():
+                        s += exit + " "
+
+                return s
 
 
 # the game class
@@ -136,10 +166,16 @@ class Game(Frame):
         # creates the rooms
         def createRooms(self):
                 # Initalizes the rooms
-                r1 = StartingRoom("StartRoom", "StartingRoom.gif")
-                r2 = MonsterRoom("GoblinRoom", "GoblinRoom.gif")
-                r3 = MonsterRoom("SkeletonRoom", "Study.gif")
-                r4 = MonsterRoom("SpiderRoom", "Bedroom.gif")
+                r1 = StartingRoom("StartRoom", "Test.gif")
+                r2 = HallRoom("GoblinRoom", "Test.gif")
+                r3 = HallRoom("SkeletonRoom", "Test.gif")
+                r4 = HallRoom("SpiderRoom", "Test.gif")
+                r5 = HallRoom("SpiderRoom", "Test.gif")
+                r6 = MonsterRoom("SpiderRoom", "Test.gif")
+                r7 = MonsterRoom("SpiderRoom", "Test.gif")
+                r8 = MonsterRoom("SpiderRoom", "Test.gif")
+                r9 = ExitRoom("SpiderRoom", "Test.gif")
+                r10 = VictoryRoom("SpiderRoom", "Test.gif")
                 
 
                 
@@ -147,46 +183,55 @@ class Game(Frame):
  
                 # ROOM 1
                 #r1 exits
-                r1.addExit("south", r3)
-                r1.addExit("west",r2)
-                #r1 grabbables
-                r1.addGrabbable("torch")
+                r1.addExit("south", r4)
+                r1.addExit("west",r3)
+                r1.addExit("north", r2)
+                r1.addExit("east", r5)
 
 
                 # ROOM 2
                 #r2 exits
-                r2.addExit("south", r4)
-                r2.addExit("east",r1)
-                #r2 items
-                r2.addItem("chessboard"," A chesseboard sits to the back corner of the room, on top a board, with what appears to be a rusted lock blocking access to the drawer.")
-                r2.addItem("fireplace", "The fireplace crackles in the otherwise silence of the home.")
-                r2.addItem("sofa","A luxery sofa sits in the center of the room, upon closer inspection it appears to have not been used in years. ")
+                r2.addExit("west", r6)
+                r2.addExit("east",r7)
 
                 # ROOM 3
                 #r3 exits
-                r3.addExit("north", r1)
-                r3.addExit("west", r4)
-                #r3 grabbables
-                r3.addGrabbable("book")
-                #r3 items
-                r3.addItem("bust","A marble bust sits inside the bookshelf, depicting an unrecognizable man.")
-                r3.addItem("bookshelves", "The shelves are lined with books no younger than 50 years old, its clear this place has laid undesturbed for some time.")
-                r3.addItem("writing-station", "With a simple book and quill its clear whoever used this prefers a more classical approach to writing.")
+                r3.addExit("north", r7)
+                r3.addExit("south", r9)
+                
 
                 # ROOM 4
                 #r4 exits
-                r4.addExit("north", r2)
-                r4.addExit("east", r3)
+                r4.addExit("west", r8)
+                r4.addExit("east", r9)
+
+                # ROOM 5
+                #r5 exits
+                r5.addExit("north", r6)
+                r5.addExit("south", r8)
+
+                # ROOM 6
+                #r6 exits
+                r6.addExit("south", r5)
+                r6.addExit("east", r2)
+
+                # ROOM 7
+                #r7 exits
+                r7.addExit("west", r2)
+                r7.addExit("south", r3)
+
+                #Need locked exit here
                 
-                #r4 items
-                r4.addItem("bed","A victorian style white bd sits in the back corner of the room, seemingly unused for quite some time.")
-                r4.addItem("chest","A chest is seen at the footrest of the bed, inside is spare sheets and pillow casings.")
-                r4.addItem("dresser","A simple dresser containing dusty clothing, beyond the clear age they appear to be well kept.")
-
-                #r4 grabbables
-                r4.addGrabbable("sheets")
-               
-
+                # ROOM 8
+                #r8 exits
+                r8.addExit("north", r5)
+                r8.addExit("east", r4)
+                
+                # ROOM 9
+                #r9 exits
+                r9.addExit("north", r3)
+                r9.addExit("west", r4)
+                
                 #Sets the default room to r1
                 Game.currentRoom = r1
 
