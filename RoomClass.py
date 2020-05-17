@@ -115,7 +115,7 @@ class StartingRoom(Room):
 class MonsterRoom(Room):
        def __str__(self):
                 # first, the room name
-                s = "You begin to enter the room, when suddenly a goblin! \n"
+                s = "You begin to enter the room, when suddenly a monster! \n"
                 # next, the exits from the room
                 s += "You can feintly make out two doors,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
@@ -126,7 +126,7 @@ class MonsterRoom(Room):
 class ExitRoom(Room):
        def __str__(self):
                 # first, the room name
-                s = "You begin to enter the room, when suddenly a goblin! \n"
+                s = "You enter the room, seeing a locked gate. \n"
                 # next, the exits from the room
                 s += "You can feintly make out three doors one of which is locked,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
@@ -146,9 +146,9 @@ class VictoryRoom(Room):
 class HallRoom(Room):
         def __str__(self):
                 # first, the room name
-                s = "You make your way along the corridor, analyzing your surrondings\n"
+                s = "You make your way along the corridor, \n"
                 # next, the exits from the room
-                s += "There are only two ways to go, back or forward, which direction do you go?:\n"
+                s += "There are only two ways to go, which direction do you go?:\n"
                 for exit in self.exits.keys():
                         s += exit + " "
 
@@ -166,16 +166,16 @@ class Game(Frame):
         # creates the rooms
         def createRooms(self):
                 # Initalizes the rooms
-                r1 = StartingRoom("StartRoom", "Test.gif")
-                r2 = HallRoom("GoblinRoom", "Test.gif")
-                r3 = HallRoom("SkeletonRoom", "Test.gif")
-                r4 = HallRoom("SpiderRoom", "Test.gif")
-                r5 = HallRoom("SpiderRoom", "Test.gif")
-                r6 = MonsterRoom("SpiderRoom", "Test.gif")
-                r7 = MonsterRoom("SpiderRoom", "Test.gif")
-                r8 = MonsterRoom("SpiderRoom", "Test.gif")
-                r9 = ExitRoom("SpiderRoom", "Test.gif")
-                r10 = VictoryRoom("SpiderRoom", "Test.gif")
+                r1 = StartingRoom("StartRoom", "FBeginingRoom.gif")
+                r2 = HallRoom("GoblinRoom", "FinalGhastRoom.gif")
+                r3 = HallRoom("SkeletonRoom", "FinalKnightRoom.gif")
+                r4 = HallRoom("SpiderRoom", "FinalLichRoom.gif")
+                r5 = HallRoom("SpiderRoom", "FinalNecroRoom.gif")
+                r6 = MonsterRoom("SpiderRoom", "FinalSpiderRoom.gif")
+                r7 = MonsterRoom("SpiderRoom", "FinalZombieRoom.gif")
+                r8 = MonsterRoom("SpiderRoom", "FinalBoss.gif")
+                r9 = ExitRoom("SpiderRoom", "LockedDoor.gif")
+                r10 = VictoryRoom("SpiderRoom", "FinalEscapeRoom.gif")
                 
 
                 
