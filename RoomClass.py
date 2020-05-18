@@ -4,14 +4,18 @@ from CombatClass import *
 from random import randint
 from time import sleep
 # class that creates the player character
+# its up here because pythons orders wouldn't make the player class if it was
+# at the bottom and player class can't be called before its made in the sequence
 class Player(Combat):
         #sets player states
         def __init__(self, name):
                 Combat.__init__(self, name, 17, randint(5, 8),\
                 randint(4, 6), randint(5, 8), randint(4, 6), randint(3, 9))
                 self.maxhp = 17
-                                                                 
+
+# Makes it easier to call the player                                                    
 global hero
+# makes the player
 hero = Player("Hero")
 # the room class
 # note that this class is fully implemented with dictionaries as illustrated in the lesson "More on Data Structures"
@@ -345,7 +349,7 @@ class Game(Frame):
         def process(self, event):
                 #set a default response
                 response = "I dont understand. Try noun verb. Valib verbs are go, look, take, and attack"
-                response += "\n(For attack choose to either 'strike' or 'cast' at your enemy."
+                response += "\nFor attack choose to either 'strike' or 'cast' at your enemy."
                 #get the command line input from the GUI
                 action = Game.player_input.get()
                 action = action.lower()
@@ -405,9 +409,11 @@ class Game(Frame):
                         # process attack
                         elif (verb == "attack"):
                                 enemy = randint(0, 1)
+                                # stops player from hitting a dead enemy
                                 if (Game.currentRoom.Mon.hp == 0):
                                         response = "The monster is already dead."
                                 else:
+                                        #decideds what stats are used when dealing or receiveing damage
                                         if (noun == "strike"):
                                                 if (hero.agi > Game.currentRoom.Mon.agi):
                                                         dealt = self.damage(hero.atk, Game.currentRoom.Mon.end)
@@ -466,7 +472,10 @@ class Game(Frame):
                                 if (hero.hp == 0):
                                         Game.currentRoom == None
                                 elif (Game.currentRoom.Mon.hp == 0):
+                                        #restores health after battle
                                         hero.hp = hero.maxhp
+                                # notifies player of how much health they have left
+                                response += "\n\n{} hp remaining.".format(hero.hp)
                                         
 
 
