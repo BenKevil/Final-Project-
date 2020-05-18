@@ -3,7 +3,16 @@ from Tkinter import *
 from CombatClass import *
 from random import randint
 from time import sleep
+# class that creates the player character
+class Player(Combat):
+        #sets player states
+        def __init__(self, name):
+                Combat.__init__(self, name, 17, randint(5, 8),\
+                randint(4, 6), randint(5, 8), randint(4, 6), randint(3, 9))
+                self.maxhp = 17
+                                                                 
 global hero
+hero = Player("Hero")
 # the room class
 # note that this class is fully implemented with dictionaries as illustrated in the lesson "More on Data Structures"
 class Room(object):
@@ -113,11 +122,13 @@ class StartingRoom(Room):
 
                 return s
 class MonsterRoom(Room):
-       def __str__(self):
-                Mon = Monster("Monster", 50)
+        def __init__(self, name, image):
+                Room.__init__(self, name, image)
+                self.Mon = Monster("Monster", 50)
+                
+        def __str__(self):
                 # first, the room name
                 s = "You begin to enter the room, when suddenly a monster! \n"
-                hero.battle(Mon)
                 # next, the exits from the room
                 s += "You can feintly make out two doors,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
@@ -126,11 +137,13 @@ class MonsterRoom(Room):
                 return s
 
 class ExitRoom(Room):
-       def __str__(self):
-                Mon = Monster("Fiend", 1000, 3)
+        def __init__(self, name, image):
+                Room.__init__(self, name, image)
+                self.Mon = Monster("Monster", 50)
+                
+        def __str__(self):
                 # first, the room name
                 s = "You enter the room, seeing a locked gate. \n"
-                hero.battle(Mon)
                 s += "You can feintly make out three doors one of which is locked,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
                         s += exit + " "
@@ -138,7 +151,11 @@ class ExitRoom(Room):
                 return s
 
 class VictoryRoom(Room):
-       def __str__(self):
+        def __init__(self, name, image):
+                Room.__init__(self, name, image)
+                self.Mon = Monster("Monster", 50)
+                
+        def __str__(self):
                 # first, the room name
                 s = "You step outside of the dungeon, finally free. \n"
                 # next, the exits from the room
@@ -147,6 +164,10 @@ class VictoryRoom(Room):
                 return s
 
 class HallRoom(Room):
+        def __init__(self, name, image):
+                Room.__init__(self, name, image)
+                self.Mon = Monster("Monster", 50)
+                
         def __str__(self):
                 # first, the room name
                 s = "You make your way along the corridor, \n"
@@ -287,9 +308,9 @@ class Game(Frame):
 
                 #if dead, say so, set text to __str__
                 if(Game.currentRoom == None):
-                        Game.text.insert(END, "You are dead. You may quit. \m")
+                        Game.text.insert(END, "You are dead. You may quit. \n")
                 else:
-                        Game.text.insert(END,str(Game.currentRoom)+ \
+                        Game.text.insert(END, str(Game.currentRoom)+ \
                                          "\nYou are carrying: " +str(Game.inventory)+
                                          "\n\n" + status)
                         Game.text.config(state=DISABLED)
@@ -306,10 +327,24 @@ class Game(Frame):
                 # set the current status
                 self.setStatus("")
 
-	# processes the player's input
+        # calculates damage
+        def damage(self, offensive, defensive):
+                result = offensive - defensive
+                print result
+                if (result > 0):
+                        return result
+                else:
+                        return 1
+
+        # gives damage dealt/received back as a string
+        def damagestring(self, result, reciever):
+                s = ("{} took {} damage.".format(reciever, result))
+                return s
+
+        # processes the player's input
         def process(self, event):
                 #set a default response
-                response = "I dont understand. Try noun verb. Valib verbs are go, look, and take."
+                response = ("I dont understand. Try noun verb. Valib verbs are go, look, take, and attack(For attack choose to either 'strike' or 'cast' at your enemy.")
                 #get the command line input from the GUI
                 action = Game.player_input.get()
                 action = action.lower()
@@ -365,119 +400,83 @@ class Game(Frame):
                                                 Game.currentRoom.delGrabbable(grabbable)
                                                 #exit the loop
                                                 break
-                        #call the updates
-                        self.setStatus(response)
-                        self.setRoomImage()
-                        Game.player_input.delete(0,END)
 
-class Player(Combat):
-        #sets player states
-        def __init__(self, name):
-                Combat.__init__(self, name, 17, randint(5, 8),\
-                randint(4, 6), randint(5, 8), randint(4, 6), randint(3, 9))
-                self.maxhp = 17
-
-        def damage(self, offensive, defensive):
-                result = offensive - defensive
-                print result
-                if (result > 0):
-                        return result
-                else:
-                        return 1
-
-        def battle(self, other):
-                #clear the previuous text
-                Game.text.config(state=NORMAL)
-                Game.text.delete("1.0",END)
-                combat = True
-                while (combat):
-                        if (self.hp == 0):
-                                Game.currentRoom = None
-                                combat = False
-                        elif (other.hp == 0):
-                                self.hp = self.maxhp
-                                combat = False
-                        else:
-                                Game.text.insert(END, "Physical or Magical?")
-                                battletype = Game.player_input.get()
-                                battletype = battletype.lower()
-                                if (self.agi > other.agi):
-                                        if (battletype == "physical"):
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                dealt = self.damage(self.atk, other.end)
-                                                Game.text.insert(END, ("The {} took {} {} damage.".format(other.name, dealt, battletype)))
-                                                sleep(0.1)
-                                                other.hp -= dealt
-                                        else:
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                dealt = self.damage(self.mag, other.res)
-                                                Game.text.insert(END, ("The {} took {} {} damage.".format(other.name, dealt, battletype)))
-                                                sleep(0.1)
-                                                other.hp -= dealt
-                                                enemy = randint(0, 1)
-                                        if (other.hp == 0):
-                                                self.hp = self.maxhp
-                                                combat = False
-                                                break
-                                        elif (enemy == 0):
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                received = self.damage(other.atk, self.end)
-                                                Game.text.insert(END, ("{} took {} physical damage.".format(self.name, received)))
-                                                sleep(0.1)
-                                                self.hp -= received
-                                        else:
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                received = self.damage(other.mag, self.res)
-                                                Game.text.insert(END, ("{} took {} physical damage.".format(self.name, received)))
-                                                sleep(0.1)
-                                                self.hp -= received
-
+                        # process attack
+                        elif (verb == "attack"):
+                                enemy = randint(0, 1)
+                                if (Game.currentRoom.Mon.hp == 0):
+                                        response = "The monster is already dead."
                                 else:
-                                        enemy = randint(0, 1)
-                                        if (enemy == 0):
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                received = self.damage(other.atk, self.end)
-                                                Game.text.insert(END, ("{} took {} physical damage.".format(self.name, received)))
-                                                sleep(0.1)
-                                                self.hp -= received
-                                        else:
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                received = self.damage(other.mag, self.res)
-                                                Game.text.insert(END, ("{} took {} physical damage.".format(self.name, received)))
-                                                sleep(0.1)
-                                                self.hp -= received
-                                        if (self.hp == 0):
-                                                combat = False
-                                                Game.currentRoom = None
-                                                break
-                                        elif (battletype == "physical"):
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                dealt = self.damage(self.atk, other.end)
-                                                Game.text.insert(END, ("The {} took {} {} damage.".format(other.name, dealt, battletype)))
-                                                sleep(0.1)
-                                                other.hp -= dealt
-                                        else:
-                                                #clear the previuous text
-                                                Game.text.config(state=NORMAL)
-                                                Game.text.delete("1.0",END)
-                                                dealt = self.damage(self.mag, other.res)
-                                                Game.text.insert(END, ("The {} took {} {} damage.".format(other.name, dealt, battletype)))
-                                                sleep(0.1)
-                                                other.hp -= dealt
+                                        if (noun == "strike"):
+                                                if (hero.agi > Game.currentRoom.Mon.agi):
+                                                        dealt = self.damage(hero.atk, Game.currentRoom.Mon.end)
+                                                        response = self.damagestring(dealt, Game.currentRoom.Mon.name)
+                                                        Game.currentRoom.Mon.hp -= dealt
+                                                        response += "\n"
+                                                        if (enemy == 0):
+                                                                received = self.damage(Game.currentRoom.Mon.atk, hero.end)
+                                                                response += self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                        else:
+                                                                received = self.damage(Game.currentRoom.Mon.mag, hero.res)
+                                                                response += self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                else:
+                                                        if (enemy == 0):
+                                                                received = self.damage(Game.currentRoom.Mon.atk, hero.end)
+                                                                response = self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                        else:
+                                                                received = self.damage(Game.currentRoom.Mon.mag, hero.res)
+                                                                response = self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                        response += "\n"
+                                                        dealt = self.damage(hero.atk, Game.currentRoom.Mon.end)
+                                                        response += self.damagestring(dealt, Game.currentRoom.Mon.name)
+                                                        Game.currentRoom.Mon.hp -= dealt
+                                                                
+                                        elif (noun == "cast"):
+                                                if (hero.agi > Game.currentRoom.Mon.agi):
+                                                        dealt = self.damage(hero.mag, Game.currentRoom.Mon.res)
+                                                        response = self.damagestring(dealt, Game.currentRoom.Mon.name)
+                                                        Game.currentRoom.Mon.hp -= dealt
+                                                        response += "\n"
+                                                        if (enemy == 0):
+                                                                received = self.damage(Game.currentRoom.Mon.atk, hero.end)
+                                                                response += self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                        else:
+                                                                received = self.damage(Game.currentRoom.Mon.mag, hero.res)
+                                                                response += self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                else:
+                                                        if (enemy == 0):
+                                                                received = self.damage(Game.currentRoom.Mon.atk, hero.end)
+                                                                response = self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                        else:
+                                                                received = self.damage(Game.currentRoom.Mon.mag, hero.res)
+                                                                response = self.damagestring(received, hero.name)
+                                                                hero.hp -= received
+                                                        response += "\n"
+                                                        dealt = self.damage(hero.mag, Game.currentRoom.Mon.res)
+                                                        response += self.damagestring(dealt, Game.currentRoom.Mon.name)
+                                                        Game.currentRoom.Mon.hp -= dealt
+                                if (hero.hp == 0):
+                                        Game.currentRoom == None
+                                elif (Game.currentRoom.Mon.hp == 0):
+                                        hero.hp = hero.maxhp
+                                        
+
+
+                        #call the updates
+                        Game.player_input.delete(0,END)
+                        self.setRoomImage()
+                        self.setStatus(response)
+
+
+                
+                               
 
 class Monster(Combat):
         def __init__(self, name, exp, boost = 0):
@@ -489,7 +488,7 @@ class Monster(Combat):
 # the default size of the GUI is 800x600
 WIDTH = 800
 HEIGHT = 600
-hero = Player("Hero")
+
                         
                                                 
                                                 
