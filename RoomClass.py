@@ -132,7 +132,7 @@ class MonsterRoom(Room):
                 
         def __str__(self):
                 # first, the room name
-                s = "You begin to enter the room, when suddenly a monster! \n"
+                s = "You begin to enter the room,\nwhen suddenly a monster! \n"
                 # next, the exits from the room
                 s += "You can feintly make out two doors,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
@@ -370,7 +370,7 @@ class Game(Frame):
                         noun = words[1]
 
                         #process go
-                        if(verb == "go"):
+                        if(verb == "run"):
                                 #default response
                                 response = "Invalid exit."
 
