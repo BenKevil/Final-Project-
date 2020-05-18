@@ -115,7 +115,7 @@ class StartingRoom(Room):
 class MonsterRoom(Room):
        def __str__(self):
                 # first, the room name
-                s = "You begin to enter the room, when suddenly a monster! \n"
+                s = "You begin to enter the room,\nwhen suddenly a monster appears! \n"
                 # next, the exits from the room
                 s += "You can feintly make out two doors,\nwhat should you do?:\n"
                 for exit in self.exits.keys():
@@ -167,15 +167,15 @@ class Game(Frame):
         def createRooms(self):
                 # Initalizes the rooms
                 r1 = StartingRoom("StartRoom", "FBeginingRoom.gif")
-                r2 = HallRoom("GoblinRoom", "FinalGhastRoom.gif")
-                r3 = HallRoom("SkeletonRoom", "FinalKnightRoom.gif")
-                r4 = HallRoom("SpiderRoom", "FinalLichRoom.gif")
-                r5 = HallRoom("SpiderRoom", "FinalNecroRoom.gif")
-                r6 = MonsterRoom("SpiderRoom", "FinalSpiderRoom.gif")
-                r7 = MonsterRoom("SpiderRoom", "FinalZombieRoom.gif")
-                r8 = MonsterRoom("SpiderRoom", "FinalBoss.gif")
-                r9 = ExitRoom("SpiderRoom", "LockedDoor.gif")
-                r10 = VictoryRoom("SpiderRoom", "FinalEscapeRoom.gif")
+                r2 = HallRoom("FinalGhastRoom", "FinalGhastRoom.gif")
+                r3 = HallRoom("FinalKnightRoom", "FinalKnightRoom.gif")
+                r4 = HallRoom("FinalLichRoom", "FinalLichRoom.gif")
+                r5 = HallRoom("FinalNecroRoom", "FinalNecroRoom.gif")
+                r6 = MonsterRoom("FinalSpiderRoom", "FinalSpiderRoom.gif")
+                r7 = MonsterRoom("FinalZombieRoom", "FinalZombieRoom.gif")
+                r8 = MonsterRoom("FinalBoss", "FinalBoss.gif")
+                r9 = ExitRoom("LockedDoor", "LockedDoor.gif")
+                r10 = VictoryRoom("SpiderRoom", "FinalExcapeRoom.gif")
                 
 
                 
@@ -231,6 +231,7 @@ class Game(Frame):
                 #r9 exits
                 r9.addExit("north", r3)
                 r9.addExit("west", r4)
+                r9.addExit("door", r10)
                 
                 #Sets the default room to r1
                 Game.currentRoom = r1
