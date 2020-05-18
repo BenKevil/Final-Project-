@@ -344,7 +344,8 @@ class Game(Frame):
         # processes the player's input
         def process(self, event):
                 #set a default response
-                response = ("I dont understand. Try noun verb. Valib verbs are go, look, take, and attack(For attack choose to either 'strike' or 'cast' at your enemy.")
+                response = "I dont understand. Try noun verb. Valib verbs are go, look, take, and attack"
+                response += "\n(For attack choose to either 'strike' or 'cast' at your enemy."
                 #get the command line input from the GUI
                 action = Game.player_input.get()
                 action = action.lower()
@@ -469,10 +470,10 @@ class Game(Frame):
                                         
 
 
-                        #call the updates
-                        Game.player_input.delete(0,END)
-                        self.setRoomImage()
-                        self.setStatus(response)
+                #call the updates
+                Game.player_input.delete(0,END)
+                self.setRoomImage()
+                self.setStatus(response)
 
 
                 
